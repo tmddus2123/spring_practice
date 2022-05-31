@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans
+<beans 
 	xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 						https://www.springframework.org/schema/beans/spring-beans.xsd
-						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context 
 						https://www.springframework.org/schema/context/spring-context.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
@@ -15,20 +15,19 @@
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
 		<property name="username" value="jennie" />
-		<property name="password" value="d12345" />
+		<property name="password" value="12345" />
 		<property name="maxActive" value="8" />
 	</bean>
 	
 	<!-- myBatis -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:/com/githrd/www/mybatis/mybatis-config.xml"></property>
+		<property name="configLocation" value="classpath:/com/githrd/www/mybatis/mybatis-config.xml" />
 	</bean>
 	
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg index="0" ref="sqlSessionFactory"/>
-	
+		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
 	
-	<bean id="mDao" class="githrd.www."
+	<bean id="mDao" class="com.githrd.www.dao.MemberDao" />
 </beans>
