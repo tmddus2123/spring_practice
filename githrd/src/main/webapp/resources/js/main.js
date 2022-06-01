@@ -5,4 +5,4 @@ $(document).ready(function(){
 	$('#obtn').click(function(){
 		$(location).attr('href', '/www/member/logout.blp');
 	});
-}); 
+});   
