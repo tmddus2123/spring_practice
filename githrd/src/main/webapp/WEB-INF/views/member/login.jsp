@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MVC Study</title>
+<title>로그인</title>
 <link rel="stylesheet" type="text/css" href="/www/css/w3.css">
 <link rel="stylesheet" type="text/css" href="/www/css/base.css">
 <script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
