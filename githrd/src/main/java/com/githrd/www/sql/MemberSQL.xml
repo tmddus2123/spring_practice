@@ -33,7 +33,45 @@
 			AND isshow = 'Y'
 	</select>
 	
-	<insert id="addMember"  parameterType="mVO">
+	<select id="getIdInfo" resultType="mVO" parameterType="string">
+		SELECT
+			mno, name, id, mail, tel, m.gen, joindate, ano, savename
+		FROM
+			member m, avatar a
+		WHERE
+			avt = ano
+			AND id = #{id}
+	</select>
+	<select id="getMnoInfo" resultType="mVO" parameterType="int">
+		SELECT
+			mno, name, id, mail, tel, m.gen, joindate, ano, savename
+		FROM
+			member m, avatar a
+		WHERE
+			avt = ano
+			AND mno = #{mno}
+	</select>
+	
+	<select id="memberList" resultType="mVO">
+		SELECT
+			mno, name
+		FROM
+			member
+		WHERE
+			isshow = 'Y'
+	</select>
+	
+	<update id="delMember" parameterType="string">
+		UPDATE
+			member
+		SET
+			isshow = 'N'
+		WHERE
+			id = #{id}
+			
+	</update>
+	
+	<insert id="addMember" parameterType="mVO">
 		INSERT INTO
 			member(mno, name, id, pw, mail, tel, gen, avt)
 		VALUES(
@@ -41,8 +79,6 @@
 			#{name}, #{id}, #{pw}, #{mail}, #{tel}, #{gen}, #{ano}
 		)
 	</insert>
+
 	
-	<insert id="myInfo" resultType="mVO">
-	
-	</insert>
 </mapper>

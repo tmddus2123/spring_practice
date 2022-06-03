@@ -8,7 +8,15 @@ $(document).ready(function(){
 	$('#jbtn').click(function() {
 		$(location).attr('href', '/www/member/join.blp');
 	});
+	
+	// 내 정보보기 버튼 클릭이벤트
 	$('#ibtn').click(function() {
-		$(location).attr('href', '/www/member/myinfo.blp');
-	})
+		$('#frm').attr('action', '/www/member/myInfo.blp');
+		$('#frm').submit();
+	});
+	
+	// 회원 목록 버튼 클릭이벤트
+	$('#mlbtn').click(function() {
+		$(location).attr('href', '/www/member/memberList.blp');
+	});
 });   

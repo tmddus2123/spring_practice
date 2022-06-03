@@ -1,7 +1,6 @@
 package com.githrd.www.vo;
 
 import java.text.*;
-import java.sql.Time;
 import java.util.Date;
 
 public class MemberVO {
@@ -92,19 +91,4 @@ public class MemberVO {
 				+ ", jdate=" + jdate + "]";
 	}
 	
-	public String getJson() {
-		StringBuffer buff = new StringBuffer();
-		buff.append("{\r\n");
-		buff.append("\"mno\": \"" + mno + "\",\r\n");
-		buff.append("\"name\": \"" + name + "\",\r\n");
-		buff.append("\"id\": \"" + id + "\",\r\n");
-		buff.append("\"mail\": \"" + mail + "\",\r\n");
-		buff.append("\"tel\": \"" + tel + "\",\r\n");
-		buff.append("\"savename\": \"" + savename + "\",\r\n");
-		buff.append("\"ano\": \"" + ano + "\",\r\n");
-		buff.append("\"gen\": \"" + (gen.equals("M")?"남자":"여자") + "\",\r\n");
-		buff.append("\"sdate\": \"" + sdate + "\"\r\n");
-		buff.append("}");
-		return buff.toString();
-	}
 }

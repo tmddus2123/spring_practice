@@ -29,8 +29,26 @@ public class MemberDao {
 	
 	// 회원정보 데이터베이스 추가작업 전담 처리함수
 	public int addMember(MemberVO mVO) {
-		return sqlSession.insert("mSQL,addMember", mVO);
+		return sqlSession.insert("mSQL.addMember", mVO);
 	}
 	
 	// 회원정보 전담 처리함수
+	public MemberVO getIdInfo(String id) {
+		return sqlSession.selectOne("mSQL.getIdInfo", id);
+	}
+	
+	// 회원정보 전담 처리함수
+	public MemberVO getMnoInfo(int mno) {
+		return sqlSession.selectOne("mSQL.getMnoInfo", mno);
+	}
+	
+	// 회원리스트 전담 처리함수
+	public List<MemberVO> getMemberList() {
+		return sqlSession.selectList("mSQL.memberList");
+	}
+	
+	// 회원 탈퇴처리 데이터베이스 작업 전담 처리함수
+	public int delMember(String id) {
+		return sqlSession.update("mSQL.delMember", id);
+	}
 }
