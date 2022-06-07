@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.githrd.www.dao.GBoardDao;
 import com.githrd.www.dao.MemberDao;
 import com.githrd.www.vo.MemberVO;
 
@@ -18,6 +19,8 @@ import com.githrd.www.vo.MemberVO;
 public class Member {
 	@Autowired
 	MemberDao mDao;
+	@Autowired
+	GBoardDao gDao;
 	
 	@RequestMapping("/login.blp")
 	public ModelAndView loginForm(ModelAndView mv, HttpSession session) {
@@ -35,14 +38,24 @@ public class Member {
 	@RequestMapping(path="/loginProc.blp", method=RequestMethod.POST, params= {"id", "pw"})
 	public ModelAndView loginProc(MemberVO mVO, HttpSession session, ModelAndView mv, RedirectView rv) {
 //		System.out.println("### 일반 사용자 ###");
+		
 		int cnt = mDao.getLogin(mVO);
 		if(cnt == 1) {
 			session.setAttribute("SID", mVO.getId());
-			rv.setUrl("/www/main.blp");
+			session.setAttribute("MSG_CHECK", "OK");
+			int count = gDao.getMyCount(mVO.getId());
+			session.setAttribute("CNT", count);
+			
+			if(count == 0) {
+				rv.setUrl("/www/gBoard/gBoardList.blp");
+			} else {
+				rv.setUrl("/www/main.blp");
+			}
 		} else {
 			rv.setUrl("/www/member/login.blp");
 		}
 		mv.setView(rv);
+		
 		return mv;
 	}
 
@@ -56,18 +69,17 @@ public class Member {
 	 * mv.setViewName(view); return mv; }
 	 */	
 	@RequestMapping(path="/loginProc.blp", params="id=admin")
-	public ModelAndView adminProc(MemberVO mVO, HttpSession session, ModelAndView mv) {
+	public ModelAndView adminProc(MemberVO mVO, HttpSession session, ModelAndView mv, RedirectView rv) {
 		System.out.println("### 관리자 ###");
 		
 		int cnt = mDao.getLogin(mVO);
-		String view = "";
 		if(cnt == 1) {
 			session.setAttribute("SID", mVO.getId());
-			view = "redirect:../main.blp";
+			rv.setUrl("/www/main.blp");
 		} else {
-			view = "redirect:login.blp";
+			rv.setUrl("/www/member/login.blp");
 		}
-		mv.setViewName(view);
+		mv.setView(rv);
 		return mv;
 	}
 	
@@ -111,13 +123,20 @@ public class Member {
 	
 	@RequestMapping(path="/joinProc.blp", method=RequestMethod.POST)
 	public ModelAndView joinProc(MemberVO mVO, ModelAndView mv, RedirectView rv, HttpSession session) {
-		int cnt = mDao.addMember(mVO);
+		int cnt = mDao.getLogin(mVO);
 		if(cnt == 1) {
-			// 성공한 경우
 			session.setAttribute("SID", mVO.getId());
-			rv.setUrl("/www/");
+			session.setAttribute("MSG_CHECK", "OK");
+			int count = gDao.getMyCount(mVO.getId());
+			session.setAttribute("CNT", count);
+			
+			if(count == 0) {
+				rv.setUrl("/www/gBoard/gBoardList.blp");
+			} else {
+				rv.setUrl("/www/main.blp");
+			}
 		} else {
-			rv.setUrl("/www/member/join.blp");			
+			rv.setUrl("/www/member/login.blp");
 		}
 		mv.setView(rv);
 		
@@ -185,10 +204,43 @@ public class Member {
 		return mv;
 	}
 	
-	@RequestMapping("/editInfo.blp")
-	public ModelAndView editInfo(ModelAndView mv) {
-		mv.setViewName("member/editInfo");
+	@RequestMapping("/myInfoEdit.blp")
+	public ModelAndView editInfo(ModelAndView mv, String id, HttpSession session, RedirectView rv) {
+		String sid = (String) session.getAttribute("SID");
+		if(sid == null) {
+			rv.setUrl("/www/member/login.blp");
+			mv.setView(rv);
+			return mv;
+		}
 		
+		if(!id.equals(sid)) {
+			rv.setUrl("/www/");
+			mv.setView(rv);
+			return mv;			
+		}
+		
+		// 데이터베이스 조회
+		MemberVO mVO = mDao.getIdInfo(id);
+		List<MemberVO> list = mDao.getAvtList(id);
+		
+		mv.addObject("DATA", mVO);
+		mv.addObject("LIST", list);
+		
+		mv.setViewName("member/editInfo");
+		return mv;
+	}
+	
+	// 내정보 수정 처리요청 처리 함수
+	@RequestMapping("/infoEditProc.blp")
+	public ModelAndView infoEditProc(ModelAndView mv, MemberVO mVO, RedirectView rv) {
+		int cnt = mDao.editMyInfo(mVO);
+		String view = "member/redirect";
+		if(cnt == 0) {
+			mv.addObject("VIEW","/www/member/myInfoEdit.blp");
+		} else {
+			mv.addObject("VIEW","/www/member/myInfo.blp");			
+		}
+		mv.setViewName(view);
 		return mv;
 	}
 }

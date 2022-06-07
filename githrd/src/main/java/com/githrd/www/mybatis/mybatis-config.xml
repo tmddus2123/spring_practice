@@ -11,9 +11,12 @@
 	
 	<typeAliases>
 		<typeAlias alias="mVO" type="com.githrd.www.vo.MemberVO"/>
+		<typeAlias alias="bVO" type="com.githrd.www.vo.BoardVO"/>
+		<typeAlias alias="fVO" type="com.githrd.www.vo.FileVO"/>
+		<typeAlias alias="page" type="com.githrd.www.util.PageUtil"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="com/githrd/www/sql/MemberSQL.xml" />
-	</mappers>
+		<mapper resource="com/githrd/www/sql/gBoardSQL.xml" />	</mappers>
 </configuration>

@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html> 
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Whistle Join</title>
+<title>Whistle Edit Information</title>
 <link rel="stylesheet" type="text/css" href="/www/css/w3.css">
 <link rel="stylesheet" type="text/css" href="/www/css/user.css">
 <script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/www/js/member/edit.js"></script>
 <style type="text/css">
-	.avtimg { 
+	.avtimg {
 		width: 100px;
 		height: 100px;
 	}
@@ -36,6 +36,10 @@
 		top: 2px;
 		left: 7px;
 	}
+	
+	h4 {
+		margin: 0px;
+	}
 </style>
 <script type="text/javascript">
 
@@ -44,20 +48,20 @@
 <body>
 	<div class="w3-content w3-margin-top mxw700">
 		<!-- 타이틀 -->
-		<h1 class="w3-pink w3-center w3-padding w3-card-4">Whistle 회원 정보수정</h1>
+		<h1 class="w3-pink w3-center w3-padding w3-card-4">GITHRD 회원 정보수정</h1>
 		<form method="POST" action="" name="frm" id="frm"
 			class="w3-col w3-margin-top w3-margin-bottom w3-padding w3-card-4">
 			<input type="hidden" id="tmail" value="${DATA.mail}">
 			<input type="hidden" id="ttel" value="${DATA.tel}">
 			<input type="hidden" id="tano" value="${DATA.ano}">
-			<input type="hidden" id="mno" value="${DATA.mno}">
+			<input type="hidden" name="mno" value="${DATA.mno}">
 			<div>
 				<label class="w3-col s3 w3-right-align w3-margin-top clrgrey ft14 mgb10">회원이름 : </label>
-				<h4 class="w3-col s8 w3-margin-top mgl10 mgb10">${DATA.name }</h4>
+				<h4 class="w3-col s8 w3-center w3-margin-top mgl10 mgb10">${DATA.name}</h4>
 			</div>
 			<div>
 				<label for="id" class="w3-col s3 w3-right-align clrgrey ft14 mgb10">아 이 디 : </label>
-				<h4 class="w3-col s8 w3-center mgb10">${DATA.id }</h4>
+				<h4 class="w3-col s8 w3-center mgb10">${DATA.id}</h4>
 			</div>
 			<div>
 				<label for="pw" class="w3-col s3 w3-right-align clrgrey ft14 mgb10">비밀번호 : </label>
@@ -75,53 +79,34 @@
 			</div>
 			<div>
 				<label for="mail" class="w3-col s3 w3-right-align clrgrey ft14 mgb10">회원메일 : </label>
-				<input type="text" name="mail" id="mail" class="w3-col s8 mgl10 w3-input w3-border mgb10">
+				<input type="text" name="mail" id="mail" class="w3-col s8 mgl10 w3-input w3-border mgb10" value="${DATA.mail}">
 			</div>
 			<div>
 				<label for="tel" class="w3-col s3 w3-right-align clrgrey ft14 mgb10">전화번호 : </label>
-				<input type="text" name="tel" id="tel" class="w3-col s8 mgl10 w3-input w3-border mgb10">
+				<input type="text" name="tel" id="tel" class="w3-col s8 mgl10 w3-input w3-border mgb10" value="${DATA.tel}">
 			</div>
 			<div>
 				<label class="w3-col s3 w3-right-align clrgrey ft14 mgb10">회원성별 : </label>
-				<h4 class="w3-col s8 mgl10 mgb10 w3-center" >${DATA.gen eq "M" ? '남자' : '여자' }</h4>
+				<h4 class="w3-col s8 mgl10 w3-center mgb10 w3-center">${DATA.gen eq "M" ? "남자": "여자" }</h4>
 			</div>
 			<div class="w3-col" id="avtfr">
 				<label class="w3-col s3 w3-right-align clrgrey ft14 mgb10">아 바 타 : </label>
 				<div class="w3-col s8 mgl10 mgb10 w3-center">
-						<div class="avtboxfr w3-center w3-margin-top" id="mavt">
-		<c:forEach var="data" items="${LIST}">
-			<c:if test="${data.gen eq 'M'}">
+						<div class="avtboxfr w3-center w3-margin-top" id="avt">
+<c:forEach var="data" items="${LIST}">
 						 	<div class="avtbox">
-						 		<label for="mavt${data.ano}">
-						 			<img src="/whistle/resources/img/avatar/${data.savename}" class="w3-col avtimg">
+						 		<label for="avt${data.ano}">
+						 			<img src="/www/img/avatar/${data.savename}" class="w3-col avtimg">
 						 		</label>
-				<c:if test="${data.ano eq DATA.ano }">
-						 		<input type="radio" name="ano" id="mavt${data.ano}" value="${data.ano}" checked>
+				<c:if test="${data.ano eq DATA.ano}">
+						 		<input type="radio" name="ano" id="avt${data.ano}" value="${data.ano}" checked>
 				</c:if>
-				<c:if test="${data.ano ne DATA.ano }">
-						 		<input type="radio" name="ano" id="mavt${data.ano}" value="${data.ano}">
+				<c:if test="${data.ano ne DATA.ano}">
+						 		<input type="radio" name="ano" id="avt${data.ano}" value="${data.ano}">
 				</c:if>
 						 	</div>
-			</c:if>
-		</c:forEach>
+</c:forEach>
 						</div>
-						 <div class="avtboxfr w3-center w3-margin-top" id="favt">
-		<c:forEach var="data" items="${LIST}">
-			<c:if test="${data.gen eq 'F'}">
-						 	<div class="avtbox">
-						 		<label for="favt${data.ano}">
-						 			<img src="/whistle/resources/img/avatar/${data.savename}" class="w3-col avtimg">
-						 		</label>
-			<c:if test="${data.ano eq DATA.ano }">
-						 		<input type="radio" name="ano" id="favt${data.ano}" value="${data.ano}" checked>
-			</c:if>
-			<c:if test="${data.ano ne DATA.ano }">
-						 		<input type="radio" name="ano" id="favt${data.ano}" value="${data.ano}">
-			</c:if>
-						 	</div>
-			</c:if>
-		</c:forEach>
-				 		</div>
 				</div>
 			</div>
 		</form>
@@ -133,5 +118,8 @@
 			<div class="w3-third w3-blue w3-hover-aqua w3-button" id="ebtn">edit</div> 
 		</div>
 	</div>
+	
+	
+	
 </body>
 </html>
