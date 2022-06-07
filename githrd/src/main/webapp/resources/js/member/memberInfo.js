@@ -8,8 +8,8 @@ $(document).ready(function() {
 		$('#frm').submit();
 	});
 	
-	$('#ebtn1').click(function() {
-		$('#frm').attr('action', '/www/member/editInfo.blp');
+	$('#ebtn').click(function() {
+		$('#frm').attr('action', '/www/member/myInfoEdit.blp');
 		$('#frm').submit();
 	});
 });
