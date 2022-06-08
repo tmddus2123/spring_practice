@@ -12,6 +12,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.githrd.www.dao.GBoardDao;
 import com.githrd.www.dao.MemberDao;
+import com.githrd.www.util.PageUtil;
 import com.githrd.www.vo.MemberVO;
 
 @Controller
@@ -84,8 +85,16 @@ public class Member {
 	}
 	
 	@RequestMapping("/logout.blp")
-	public ModelAndView logout(ModelAndView mv, HttpSession session, RedirectView rv) {
+	public ModelAndView logout(ModelAndView mv, HttpSession session, RedirectView rv, String vw, PageUtil page, int nowPage) {
 		session.removeAttribute("SID");
+		
+		if(vw == null) {
+			vw = "/www/";
+		}
+		if(nowPage != null) {
+			mv.addObject("NOWPAGE", nowPage);
+		}
+		
 		rv.setUrl("/www/");
 		mv.setView(rv);
 		return mv;

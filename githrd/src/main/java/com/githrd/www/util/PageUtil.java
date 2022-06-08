@@ -52,6 +52,10 @@ public class PageUtil {
 		setPage(nowPage, totalCount, 3, 3);
 	}
 	
+	public void setPage(int totalCount) {
+		setPage(this.nowPage, totalCount, 3, 3);
+	}
+	
 	public void setPage(int nowPage, int totalCount, int pageRow, int pageGroup) {
 		this.nowPage = nowPage;
 		this.totalCount = totalCount;
