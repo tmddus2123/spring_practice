@@ -11,7 +11,7 @@
 <script type="text/javascript" src="/www/js/gBoard/gBoard.js"></script>
 <style type="text/css">
 	.w3-button {
-		padding : 1px 16px;
+		padding: 1px 16px;
 	}
 	.box120 {
 		width: 135px;
@@ -23,18 +23,17 @@
 		<!-- 페이지 헤더 -->
 		<header class="w3-col w3-card-4 mgb20">
 			<h1 class="w3-pink w3-center w3-padding mg0">BlackPink 방명록</h1>
-			<nav class="w3-bar w3-yellow">			
+			<nav class="w3-bar w3-yellow">
 				<div class="w3-col w150 w3-button w3-small w3-green" id="hbtn">home</div>
-		
 <c:if test="${empty SID}">
 				<div class="w3-col w150 w3-button w3-small w3-deep-orange w3-right" id="lbtn">login</div>
 				<div class="w3-col w150 w3-button w3-small w3-orange w3-right" id="jbtn">join</div>
 </c:if>
 <c:if test="${not empty SID}">
-	<c:if test="${CNT eq 0}">
-				<div class="w3-col w150 w3-button w3-small w3-orange w3-right" id="wbtn">글 작성</div>
-	</c:if>
 				<div class="w3-col w150 w3-button w3-small w3-red w3-right" id="obtn">logout</div>
+	<c:if test="${CNT eq 0}">
+				<div class="w3-col w150 w3-button w3-small w3-orange w3-right" id="wbtn">글작성</div>
+	</c:if>
 </c:if>
 			</nav>
 		</header>
@@ -56,35 +55,38 @@
 			</div>
 		</div>
 </c:forEach>
+		
 		<!-- 페이지 처리 시작 -->
 		<div class="w3-center">
 			<div class="w3-bar w3-border w3-margin-top w3-margin-bottom">
-		<c:if test="${PAGE.startPage eq 1}">		
+	<c:if test="${PAGE.startPage eq 1}">
 				<div class="w3-bar-item w3-light-grey">&laquo;</div>
-		</c:if>
-		<c:if test="${PAGE.startPage ne 1}">		
+	</c:if>
+	<c:if test="${PAGE.startPage ne 1}">
 				<div class="w3-bar-item w3-button w3-hover-blue pbtn" id="${PAGE.startPage - 1}">&laquo;</div>
-		</c:if>
+	</c:if>
 	<c:forEach var="page" begin="${PAGE.startPage}" end="${PAGE.endPage}">
-		<c:if test="${page eq PAGE.nowPage}">
+			<c:if test="${page eq PAGE.nowPage}">
 				<div class="w3-bar-item w3-orange">${page}</div>
-		</c:if>
-		<c:if test="${page ne PAGE.nowPage}">
+			</c:if>
+			<c:if test="${page ne PAGE.nowPage}">
 				<div class="w3-bar-item w3-button w3-hover-blue pbtn" id="${page}">${page}</div>
-		</c:if>
+			</c:if>
 	</c:forEach>
-		<c:if test="${PAGE.endPage eq PAGE.totalPage}">
+			<c:if test="${PAGE.endPage eq PAGE.totalPage}">
 				<div class="w3-bar-item w3-light-grey">&raquo;</div>
-		</c:if>
-		<c:if test="${PAGE.endPage ne PAGE.totalPage}">
+			</c:if>
+			<c:if test="${PAGE.endPage ne PAGE.totalPage}">
 				<div class="w3-bar-item w3-button w3-hover-blue pbtn" id="${PAGE.endPage + 1}">&raquo;</div>
-		</c:if>
+			</c:if>
 			</div>
 		</div>
 		<!-- 페이지 처리 태그 끝 -->
 	</div>
+	
 	<!-- 데이터 전송용 form 태그 -->
 	<form method="POST" action="/www/gBoard/gBoardList.blp" id="frm" name="frm">
+		<input type="hidden" id="view" name="vw" >
 		<input type="hidden" id="nowPage" name="nowPage" value="${PAGE.nowPage}">
 	</form>
 </body>

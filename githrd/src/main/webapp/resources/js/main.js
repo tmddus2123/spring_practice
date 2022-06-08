@@ -44,4 +44,9 @@ $(document).ready(function(){
 	$('#gbtn').click(function(){
 		$(location).attr('href', '/www/gBoard/gBoardList.blp');
 	});
+	
+	// 댓글게시판 버튼 클릭
+	$('#rbtn').click(function() {
+		$(location).attr('href', '/www/reBoard/reBoardList.blp');
+	});
 });

@@ -101,3 +101,13 @@
 뷰			:	/WEB-INF/views/member/memberInfo.jsp
 ----------------------------------------------------------------------
 
+=============================
+### 댓글 게시판 요청 설계 ###
+=============================
+# 댓글 게시판 리스트 보기 요청
+요청내용	:	/www/reBoard/reBoardList.blp
+파라미터	:	[nowPage]
+컨트롤러	:	com.githrd.www.controller.ReBoard
+처리함수	:	gBoardList()
+뷰			:	/WEB-INF/views/reBoard/reBoardList.jsp
+----------------------------------------------------------------------
