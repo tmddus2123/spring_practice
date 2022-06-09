@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>"
+<script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#frm').submit();
@@ -15,6 +15,7 @@
 <body>
 <c:if test="${not empty VIEW}">
 	<form method="POST" action="${VIEW}" id="frm" name="frm">
+		<input type="hidden" name="vw" value="${VIEW}">
 <c:if test="${not empty NOWPAGE}">
 		<input type="hidden" name="nowPage" value="${NOWPAGE}">
 </c:if>
@@ -23,6 +24,9 @@
 </c:if>
 <c:if test="${not empty param.bno}">
 		<input type="hidden" name="bno" value="${param.bno}">
+</c:if>
+<c:if test="${not empty param.id}">
+		<input type="hidden" name="id" value="${param.id}">
 </c:if>
 
 	</form>

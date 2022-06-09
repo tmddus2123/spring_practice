@@ -28,8 +28,8 @@
 	<div class="w3-content mxw750 w3-margin-top">
 		<!-- 페이지 헤더 -->
 		<header class="w3-col w3-card-4 mgb20">
-			<h1 class="w3-pink w3-center w3-padding mg0">BlackPink 댓글 게시판</h1>
-			<nav class="w3-bar w3-yellow">
+			<h1 class="w3-pink w3-center w3-padding mg0">GITHRD 댓글 게시판</h1>
+			<nav class="w3-bar w3-amber">
 				<div class="w3-col w150 w3-button w3-small w3-green menubtn" id="hbtn">home</div>
 <c:if test="${empty SID}">
 				<div class="w3-col w150 w3-button w3-small w3-deep-orange w3-right menubtn" id="lbtn">login</div>
@@ -44,34 +44,36 @@
 		
 		<!-- 페이지 본문 -->
 <c:forEach var="data" items="${LIST}">
-		<div class="w3-col" style="padding-left: ${data.step * 50}px">
-		<div class="w3-col w3-round-large w3-card-4 w3-margin-bottom w3-padding">
-			<div class="w3-col box120 pdAll10 w3-border-right">
-				<img src="/whistle/resources/img/avatar/${data.avatar}" class="inblock avtBox100 w3-border w3-border-grey">
-				<span class="w3-col w3-center ft10 mid"><b>${data.id}</b></span>
-			</div>
-			<div class="w3-rest w3-padding">
-				<div class="w3-col w3-border-bottom">
-					<div class="w3-col w3-twothird w3-right" id="${data.bno}">
-						<div class="w3-col w3-button w3-small w70 w3-blue w3-right">댓글</div>
-		<c:if test="${SID eq data.id}">
-						<div class="w3-col w3-button w3-small w70 w3-orange w3-right">수정</div>
-						<div class="w3-col w3-button w3-small w70 w3-red w3-right">삭제</div>
+		<div class="w3-col" style="padding-left: ${data.step * 70}px">
+			<div class="w3-col w3-round-large w3-card-4 w3-margin-bottom w3-padding">
+				<div class="w3-col box120 pdAll10 w3-border-right">
+					<img src="/www/img/avatar/${data.avatar}" class="inblock avtBox100 w3-border w3-border-grey">
+					<span class="w3-col w3-center ft10 mid"><b>${data.id}</b></span>
+				</div>
+				<div class="w3-rest w3-padding">
+					<div class="w3-col w3-border-bottom">
+						<div class="w3-col w3-twothird w3-right" id="${data.bno}">
+		<c:if test="${not empty SID}">
+							<div class="w3-col w3-button w3-small w70 w3-blue w3-right comment">댓글</div>
 		</c:if>
+		<c:if test="${SID eq data.id}">
+							<div class="w3-col w3-button w3-small w70 w3-orange w3-right editbtn">수정</div>
+							<div class="w3-col w3-button w3-small w70 w3-red w3-right delbtn">삭제</div>
+		</c:if>
+						</div>
+						<span class="w3-third w3-left mgb10 ft10"><small>${data.sdate}</small></span>
 					</div>
-					<span class="w3-third w3-left mgb10 ft10"><small>${data.sdate}</small></span>
-				</div>
-				<div class="w3-col w3-margin-top">
-					<span class="w3-col w3-padding ft12">${data.body}</span>
+					<div class="w3-col w3-margin-top">
+						<span class="w3-col w3-padding ft12">${data.body}</span>
+					</div>
 				</div>
 			</div>
-		</div>
 		</div>
 </c:forEach>
 		
 		<!-- 페이지 처리 시작 -->
 		<div class="w3-center">
-			<div class="w3-bar w3-border w3-margin-top w3-margin-bottom">
+			<div class="w3-bar w3-border w3-round-medium w3-card w3-margin-top w3-margin-bottom">
 	<c:if test="${PAGE.startPage eq 1}">
 				<div class="w3-bar-item w3-light-grey">&laquo;</div>
 	</c:if>
@@ -96,21 +98,20 @@
 		</div>
 		<!-- 페이지 처리 태그 끝 -->
 	</div>
-	
+
 	<!-- 메세지 출력 모달창 -->
 <c:if test="${not empty MSG}">
-	<div id="id01" class="w3-modal w3-animate-opacity">
-    	<div class="w3-modal-content mx650 w3-card-4">
-      		<header class="w3-container w3-blue"> 
-        		<span onclick="document.getElementById('id01').style.display='none'" 
-        		class="w3-button w3-large w3-display-topright">&times;</span>
-       			<h2>BlackPink Message</h2>
-      		</header>
-      		<div class="w3-container w3-center">
-        		<h4>${MSG}</h4>
-      		</div>
-    	</div>
-  	</div>
+	<div id="modal" class="w3-modal" style="display: block;">
+	    <div class="w3-modal-content mxw650 w3-animate-top w3-card-4">
+	      <header class="w3-container w3-blue"> 
+	        <span class="w3-button w3-display-topright" id="modalClose">&times;</span>
+	        <h2>GITHRD Message</h2>
+	      </header>
+	      <div class="w3-container w3-center">
+	        <h4>${MSG}</h4>
+	      </div>
+	    </div>
+	</div>
 </c:if>
 	
 	<!-- 데이터 전송용 form 태그 -->
@@ -118,7 +119,7 @@
 		<input type="hidden" id="nowPage" name="nowPage" value="${PAGE.nowPage}">
 		<input type="hidden" id="bno" name="bno">
 		<input type="hidden" id="id" name="id" value="${SID}">
-		<input type="hidden" id="view" name="v w">
+		<input type="hidden" id="view" name="vw" value="/www/reBoard/reBoardList.blp">
 	</form>
 </body>
 </html>
