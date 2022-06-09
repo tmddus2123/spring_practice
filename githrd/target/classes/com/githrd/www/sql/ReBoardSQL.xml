@@ -44,11 +44,6 @@
 		    rno BETWEEN #{startCont} AND #{endCont}
 	</select>
 	
-	<select id="">
-	
-	</select>
-	
-	
 	<!-- 글 작성 회원정보 -->
 	<select id="getWriteInfo" resultType="bVO" parameterType="string">
 		SELECT
@@ -58,6 +53,31 @@
 		WHERE
 		    ano = avt
 		    AND id = #{id}
+	</select>
+	
+	<!-- 댓글 작성 데이터 조회 질의명령 -->
+	<select id="commentData" resultType="bVO" parameterType="bVO">
+		SELECT
+		    mno, savename avatar, rbno upno, body
+		FROM
+		    member, avatar, reboard
+		WHERE
+		    avt = ano
+		    AND id = #{id}
+		    AND rbno = #{bno}
+	</select>
+		
+	<!-- 게시글 수정 데이터 조회 질의명령 -->
+	<select id="editData" resultType="bVO" parameterType="bVO">
+		SELECT
+			id, mno, savename avatar, rbno upno, body
+		FROM
+			member m, avatar a, reboard r
+		WHERE
+			avt = ano
+			AND mno = rbmno
+			AND rbno = #{bno}
+	
 	</select>
 	
 	<insert id="addReBoard" parameterType="bVO">
@@ -72,14 +92,46 @@
 				rbno, rbmno, body
 				<if test="upno neq 0">
 					, upno
-				</if>	
+				</if>
 			)
 		VALUES(
 			#{bno}, #{mno}, #{body}
 			<if test="upno neq 0">
-				,#{upno}
+				, #{upno}
 			</if>
 		)
-		
 	</insert>
+	
+	<update id="editReBoard" parameterType="bVO">
+		UPDATE
+			reboard
+		SET
+			body = #{body},
+			wdate = sysdate
+		WHERE
+			rbno = #{bno}
+			
+	</update>
+	
+	<!-- 글 삭제 질의 명령 -->
+	<update id="delReBoard" parameterType="bVO">
+		UPDATE
+			reboard
+		SET
+			isshow = 'N'
+		WHERE
+			rbno IN (
+						SELECT
+							rbno
+						FROM
+							reboard
+						WHERE
+							isshow = 'Y'
+						START WITH
+							rbno = #{bno}
+						CONNECT BY
+							PRIOR rbno = upno
+					)
+	</update>
+	
 </mapper>

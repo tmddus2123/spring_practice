@@ -29,6 +29,12 @@ public class Member {
 		return mv;
 	}
 	
+	@RequestMapping(path="/login.blp", params={"vw", "nowPage"})
+	public ModelAndView loginForm(ModelAndView mv, HttpSession session, String vw, String nowPage) {
+		mv.setViewName("member/login");
+		return mv;
+	}
+	
 	/*
 	 * @RequestMapping("/login.blp") public String loginForm(HttpSession session,
 	 * HttpServletResponse resp) {
@@ -54,6 +60,25 @@ public class Member {
 			}
 		} else {
 			rv.setUrl("/www/member/login.blp");
+		}
+		mv.setView(rv);
+		
+		return mv;
+	}
+	
+	// 댓글게시판에서 로그인 처리를 요청하는 처리함수
+	@RequestMapping(path="/loginProc.blp", method=RequestMethod.POST, params={"id", "pw", "vw", "nowPage"})
+	public ModelAndView loginProc(MemberVO mVO, HttpSession session, ModelAndView mv, RedirectView rv, String vw, String nowPage) {
+		int cnt = mDao.getLogin(mVO);
+		if(cnt == 1) {
+			session.setAttribute("SID", mVO.getId()); // 로그인 처리
+			session.setAttribute("MSG_CHECK", "OK");
+			int count = gDao.getMyCount(mVO.getId());
+			session.setAttribute("CNT", count);
+			
+			rv.setUrl(vw + "?nowPage=" + nowPage); // 리다이렉트
+		} else {
+			rv.setUrl("/www/member/login.blp?vw=" + vw + "&nowPage=" + nowPage);
 		}
 		mv.setView(rv);
 		
@@ -91,7 +116,7 @@ public class Member {
 		if(vw == null) {
 			vw = "/www/";
 		}
-		if(nowPage != null) {
+		if(nowPage != 0) {
 			mv.addObject("NOWPAGE", nowPage);
 		}
 		
@@ -151,6 +176,27 @@ public class Member {
 		
 		return mv;
 	}
+	
+	// 댓글게시판에서 회원가입 처리를 요청하는 처리함수
+		@RequestMapping(path="/joinProc.blp", method=RequestMethod.POST, params={"vw", "nowPage"})
+		public ModelAndView joinProc(MemberVO mVO, HttpSession session, ModelAndView mv, RedirectView rv, String vw, String nowPage) {
+			int cnt = mDao.getLogin(mVO);
+			if(cnt == 1) {
+				session.setAttribute("SID", mVO.getId()); // 로그인 처리
+				session.setAttribute("MSG_CHECK", "OK");
+				int count = gDao.getMyCount(mVO.getId());
+				session.setAttribute("CNT", count);
+				
+//				rv.setUrl(vw + "?nowPage=" + nowPage); //get방식 처리
+			} else {
+//				rv.setUrl("/www/member/join.blp?vw=" + vw + "&nowPage=" + nowPage); //get방식 처리
+			}
+//			mv.setView(rv); //get방식 처리
+			mv.addObject("VIEW", vw);
+			mv.addObject("NOWPAGE", nowPage);
+			mv.setViewName("reBoard/redirect");
+			return mv;
+		}
 	
 	@RequestMapping(path="/myInfo.blp", params="id")
 	public ModelAndView myInfo(String id, ModelAndView mv) {
