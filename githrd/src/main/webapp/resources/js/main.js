@@ -49,4 +49,9 @@ $(document).ready(function(){
 	$('#rbtn').click(function() {
 		$(location).attr('href', '/www/reBoard/reBoardList.blp');
 	});
+	
+	$('#sbtn').click(function() {
+		$('#frm').attr('action', '/www/survey/surveyInfo.blp');
+		$('#frm').submit();
+	});
 });
