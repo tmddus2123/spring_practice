@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sSQL">
+	<!-- 진행중인 설문중 참여하지 않은 설문 갯수 조회 질의명령 -->
+	<select id="remainSurvey" resultType="int" parameterType="sVO">
+		SELECT
+		    count(*)
+		FROM
+		    surveyInfo
+		WHERE
+		    sysdate BETWEEN sistart and siend
+		    AND sino NOT IN(
+		        SELECT
+		            DISTINCT sq_sino
+		        FROM
+		            survey, surveyquest, member
+		        WHERE
+		            sv_sqno = sqno
+		            AND smno = mno
+		            AND id = #{id}
+		        )
+	</select>
+	
+	<select id="ingList" resultType="sVO" parameterType="string">
+		SELECT
+		    sino, sititle title,
+		    NVL(
+		        (SELECT
+		            count(DISTINCT sq_sino)
+		        FROM
+		            survey, surveyQuest, member
+		        WHERE
+		            sv_sqno = sqno
+		            AND smno = mno
+		            AND id = 'tmddus'
+		        GROUP BY 
+		            sq_sino
+		        HAVING
+		            sq_sino = sino), 0) cnt 
+		FROM
+		    surveyinfo
+		WHERE
+		    sysdate between sistart and siend
+	
+	</select>
+	
+	<select id="oldList" resultType="sVO"> 
+		SELECT
+			sino, sititle title
+		FROM
+			surveyinfo
+		WHERE
+			siend <![CDATA[<]]> sysdate
+	
+	</select>
+	
+</mapper>
