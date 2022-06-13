@@ -23,4 +23,17 @@ public class SurveyDao {
 	public List<SurveyVO> getOldList() {
 		return sqlSession.selectList("sSQL.oldList");
 	}
+	
+	public List<SurveyVO> getQuestList(int sino) {
+		return sqlSession.selectList("sSQL.questList", sino);
+	}
+	
+	public List<SurveyVO> getBogiList(int upno) {
+		return sqlSession.selectList("sSQL.bogiList", upno);
+	}
+	
+	// 계층형 질의로 설문문항보기리스트 조회 전담 처리함수
+	public List<SurveyVO> getQList(int sino) {
+		return sqlSession.selectList("sSQL.qList", sino);
+	}
 }
