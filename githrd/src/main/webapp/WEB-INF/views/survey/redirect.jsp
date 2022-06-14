@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
+	$(document).ready(function(){
 		$('#frm').submit();
 	});
 </script>
