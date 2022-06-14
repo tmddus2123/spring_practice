@@ -23,7 +23,7 @@ $(document).ready(function(){
 	});
 	
 	$('#sbtn').click(function() {
-		var el1 = $(.quest');
+		var el1 = $('.quest');
 		var len1 = el1.length;
 		var dap = $('[type="radio"]:checked');
 		var len2 = dap.length;
