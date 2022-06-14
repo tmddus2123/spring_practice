@@ -24,14 +24,14 @@
 <body>
 	<form method="POST" action="#" id="frm" name="frm">
 		<input type="hidden" name="id" value="${SID}">
-		<input type="hidden" name="sino" value="${DATA.sino}">
-		<input type="hidden" name="title" value="${DATA.title}">
+		<input type="hidden" name="sino" value="${param.sino}">
+		<input type="hidden" name="title" value="${param.title}">
 	</form>
 	
 	<div class="w3-content w3-center mx650">
-		<h1 class="w3-blue w3-padding w3-card-4">설문 조사</h1>
+		<h1 class="w3-blue w3-padding w3-card-4">설문 조사 결과</h1>
 		
-		<h2 class="w3-col w3-text-indigo w3-margin-bottom w3-margin-top">${DATA.title}</h2>
+		<h2 class="w3-col w3-text-indigo w3-margin-bottom w3-margin-top">${param.title}</h2>
 		
 		<form name="frm1">
 <c:forEach var="quest" items="${DATA.bogi}" varStatus="st">

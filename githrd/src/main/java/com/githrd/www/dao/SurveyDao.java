@@ -36,4 +36,9 @@ public class SurveyDao {
 	public List<SurveyVO> getQList(int sino) {
 		return sqlSession.selectList("sSQL.qList", sino);
 	}
+	
+	public int addSurvey(SurveyVO sVO) {
+		return sqlSession.insert("sSQL.addSurvey", sVO);
+	}
+	
 }

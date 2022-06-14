@@ -5,15 +5,19 @@ import java.text.*;
 
 public class SurveyVO {
 	private int mno, ano, cnt, sino, sqno, svno, upno, total;
-
-
 	private double per;
-	private String id, avatar, title, bodsy, sdate;
+	private String id, avatar, title, body, sdate;
 	private Date svdate;
 	private List<SurveyVO> bogi;
+	private int[] dap;
 	
 	
-	
+	public int[] getDap() {
+		return dap;
+	}
+	public void setDap(int[] dap) {
+		this.dap = dap;
+	}
 	public List<SurveyVO> getBogi() {
 		return bogi;
 	}
@@ -56,14 +60,14 @@ public class SurveyVO {
 	public void setSvno(int svno) {
 		this.svno = svno;
 	}
+	public int getTotal() {
+		return total;
+	}
 	public int getUpno() {
 		return upno;
 	}
 	public void setUpno(int upno) {
 		this.upno = upno;
-	}
-	public int getTotal() {
-		return total;
 	}
 	public void setTotal(int total) {
 		this.total = total;
@@ -92,11 +96,11 @@ public class SurveyVO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getBodsy() {
-		return bodsy;
+	public String getBody() {
+		return body;
 	}
-	public void setBodsy(String bodsy) {
-		this.bodsy = bodsy;
+	public void setBody(String body) {
+		this.body = body;
 	}
 	public String getSdate() {
 		return sdate;
@@ -105,7 +109,6 @@ public class SurveyVO {
 		SimpleDateFormat form = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		sdate = form.format(svdate);
 	}
-	
 	public void setSdate(String sdate) {
 		this.sdate = sdate;
 	}
@@ -116,11 +119,10 @@ public class SurveyVO {
 		this.svdate = svdate;
 		setSdate();
 	}
-
 	@Override
 	public String toString() {
 		return "SurveyVO [mno=" + mno + ", ano=" + ano + ", cnt=" + cnt + ", sino=" + sino + ", sqno=" + sqno
 				+ ", svno=" + svno + ", total=" + total + ", per=" + per + ", id=" + id + ", avatar=" + avatar
-				+ ", title=" + title + ", bodsy=" + bodsy + ", sdate=" + sdate + ", svdate=" + svdate + "]";
+				+ ", title=" + title + ", body=" + body + ", sdate=" + sdate + ", svdate=" + svdate + "]";
 	}
 }
