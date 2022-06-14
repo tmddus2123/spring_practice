@@ -27,7 +27,7 @@
    </form>
 
    <div class="w3-content w3-center mx650">
-      <h1 class="w3-blue w3-padding w3-card-4">설문 조사</h1>
+      <h1 class="w3-blue w3-padding w3-card-4">설문 조사 결과</h1>
       
       <h2 class="w3-col w3-text-indigo w3-margin-bottom w3-margin-top">${DATA.title}</h2>
       

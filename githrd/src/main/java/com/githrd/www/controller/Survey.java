@@ -45,4 +45,21 @@ public class Survey {
 		mv.setViewName("survey/survey");
 		return mv;
 	}
+	
+	// 설문조사 응답 처리 요청 처리함수
+	@RequestMapping("/surveyProc.blp")
+	public ModelAndView surveyProc(ModelAndView mv, SurveyVO sVO) {
+		
+		boolean bool = false;
+		bool = sSrvc.addAllDap(sVO);
+		String view = "/www/survey/surveyResult.blp";
+		if(!bool) {
+			// 실패한 작업이 있는 경우
+			view = "/www/survey/survey.blp";
+		}
+		mv.addObject("VIEW", view);
+		
+		mv.setViewName("survey/redirect");
+		return mv;
+	}
 }
