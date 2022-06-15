@@ -13,6 +13,23 @@ $(document).ready(function(){
 		$('#frm').submit();
 	});
 	
+	$('.done').click(function() {
+		
+		var sno = $(this).attr('id');
+		var txt = $(this).text();
+		txt = txt.substring(txt.indexOf('.') + 2);
+		
+		$('#sino').val(sno);
+		$('#title').val(txt);
+		
+		$('#frm').attr('action', '/www/survey/surveyResult.blp');
+		$('#frm').submit();
+	});
+	
+	$('#hbtn').click(function() {
+		$('#frm').attr('/www/');
+	});
+
 	$('#lbtn').click(function(){
 		$('#frm').attr('action', '/www/survey/surveyInfo.blp');
 		$('#frm').submit();
