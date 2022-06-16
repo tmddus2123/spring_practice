@@ -46,7 +46,7 @@ public class MemberDao {
 	}
 	
 	// 회원리스트 전담 처리함수
-	public List<MemberVO> getMemberList() {
+	public List<MemberVO> membList(){
 		return sqlSession.selectList("mSQL.memberList");
 	}
 	
