@@ -1,19 +1,23 @@
 package com.githrd.www.controller;
 
-import java.util.List;
+import java.util.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.slf4j.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.stereotype.*;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.*;
 
 import com.githrd.www.dao.*;
-import com.githrd.www.service.SurveyService;
+import com.githrd.www.service.*;
 import com.githrd.www.vo.*;
 
 @Controller
 @RequestMapping("/survey")
 public class Survey {
+	
+	private static final Logger surveyLog = LoggerFactory.getLogger(Survey.class);
+	private static final Logger sLog = LoggerFactory.getLogger("surveyLog");
 	@Autowired
 	SurveyDao sDao;
 	@Autowired
@@ -33,19 +37,26 @@ public class Survey {
 		return mv;
 	}
 	
-	// 설문조사 폼보기 요청 처리함수
+	/**
+	 * 설문조사 폼보기 요청 처리함수
+	 */
 	@RequestMapping("/survey.blp")
 	public ModelAndView survey(ModelAndView mv, SurveyVO sVO) {
 		
-		sSrvc.setBogi(sVO);
-//		sSrvc.settingList(sVO);
+//		sSrvc.setBogi(sVO);
+		sSrvc.settingList(sVO);
 		
+		// 데이터 심고
 		mv.addObject("DATA", sVO);
 		
+		// 뷰 설정
 		mv.setViewName("survey/survey");
 		return mv;
 	}
 	
+	/**
+	 * 설문조사 응답 처리 요청 처리함수
+	 */
 	@RequestMapping("/surveyProc.blp")
 	public ModelAndView surveyProc(ModelAndView mv, SurveyVO sVO) {
 		/*
@@ -60,6 +71,8 @@ public class Survey {
 		if(!bool) {
 			// 실패한 작업이 있는 경우
 			view = "/www/survey/survey.blp";
+		} else {
+			sLog.info(sVO.getId() + " 님이 [ " + sVO.getSino() + " ] 번 설문에 참여 완료했습니다.");
 		}
 		
 		// 데이터심고
@@ -73,11 +86,14 @@ public class Survey {
 	// 설문 결과페이지 폼보기 요청
 	@RequestMapping("/surveyResult.blp")
 	public ModelAndView surveyResult(ModelAndView mv, SurveyVO sVO) {
-		sSrvc.resultService(sVO);
+//		sSrvc.resultService(sVO);
+//		sSrvc.getResult(sVO);
+		sSrvc.setMunhangList(sVO);
 		
-		// 위의 함수 호출로 인해서 sVO의 변수에 변화가 생겼으므로 그냥 심어주면 된다.
+		// 위의 함수 호출로 인해서  sVO의 변수에 변화가 생겼으므로 그냥 심어주면 된다.
 		// 데이터 심고
 		mv.addObject("DATA", sVO);
+		
 		mv.setViewName("survey/surveyResult");
 		return mv;
 	}

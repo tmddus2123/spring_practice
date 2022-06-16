@@ -1,11 +1,11 @@
 package com.githrd.www.dao;
 
-import java.util.List;
+import java.util.*;
 
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mybatis.spring.*;
+import org.springframework.beans.factory.annotation.*;
 
-import com.githrd.www.vo.SurveyVO;
+import com.githrd.www.vo.*;
 
 public class SurveyDao {
 	@Autowired
@@ -16,33 +16,43 @@ public class SurveyDao {
 		return sqlSession.selectOne("sSQL.remainSurvey", sVO);
 	}
 	
-	public List<SurveyVO> getIngList(String id) {
+	// 진행중인 설문 리스트 조회 전담 처리함수
+	public List<SurveyVO> getIngList(String id){
 		return sqlSession.selectList("sSQL.ingList", id);
 	}
 	
-	public List<SurveyVO> getOldList() {
+	// 종료된 설문 리스트 조회 전담 처리함수
+	public List<SurveyVO> getOldList(){
 		return sqlSession.selectList("sSQL.oldList");
 	}
 	
-	public List<SurveyVO> getQuestList(int sino) {
+	// 설문주제번호로 문항리스트 조회 전담 처리함수
+	public List<SurveyVO> getQuestList(int sino){
 		return sqlSession.selectList("sSQL.questList", sino);
 	}
 	
-	public List<SurveyVO> getBogiList(int upno) {
+	// 설문 문항번호로 설문보기리스트 조회 전담 처리함수
+	public List<SurveyVO> getBogiList(int upno){
 		return sqlSession.selectList("sSQL.bogiList", upno);
 	}
 	
 	// 계층형 질의로 설문문항보기리스트 조회 전담 처리함수
-	public List<SurveyVO> getQList(int sino) {
+	public List<SurveyVO> getQList(int sino){
 		return sqlSession.selectList("sSQL.qList", sino);
 	}
 	
+	// 설문응답 입력 전담 처리함수
 	public int addSurvey(SurveyVO sVO) {
 		return sqlSession.insert("sSQL.addSurvey", sVO);
 	}
 	
-	public List<SurveyVO> getResultList(int sino) {
+	// 설문주제번호로 설문결과조회 전담 처리함수
+	public List<SurveyVO> getResultList(int sino){
 		return sqlSession.selectList("sSQL.resultList", sino);
 	}
 	
+	// 설문문항의 보기 결과 조회 전담 처리함수
+	public List<SurveyVO> getBogiResult(int sqno){
+		return sqlSession.selectList("sSQL.bogiResult", sqno);
+	}
 }
