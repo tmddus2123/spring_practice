@@ -9,6 +9,15 @@ public class BoardVO {
 	private int mno, bno, upno, rno, ano, click, cnt, step;
 	private String id, title, body, sdate, avatar;
 	private Date wdate;
+	private List<FileVO> fVO;
+	
+	
+	public List<FileVO> getfVO() {
+		return fVO;
+	}
+	public void setfVO(List<FileVO> fVO) {
+		this.fVO = fVO;
+	}
 	public int getMno() {
 		return mno;
 	}
