@@ -35,7 +35,7 @@
 			<div class="w3-col w3-margin-bottom">
 				<label class="w3-col s2">File</label>
 				<div class="w3-col m10" id="filebox">
-					<input type="file" class="w3-input w3-border w3-margin-bottom upfile">
+					<input type="file" name="file" class="w3-input w3-border w3-margin-bottom upfile">
 				</div>
 			</div>
 			<div class="w3-col w3-margin-bottom" id="previewbox" style="display: none;">

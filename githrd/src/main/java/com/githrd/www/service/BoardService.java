@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.githrd.www.dao.*;
@@ -33,6 +34,9 @@ public class BoardService {
 		path = path.substring(0, path.indexOf("/WEB-INF")) + "/resources/upload";
 		
 		fVO.setDir("/www/upload");
+		
+		long len = file.getSize();
+		fVO.setLen(len);
 		// 파일의 원 이름을 꺼내오고
 		String oldName = file.getOriginalFilename();
 		if(oldName == null) {
@@ -55,6 +59,35 @@ public class BoardService {
 		
 		return fVO;
 		
+	}
+	
+	// 다중 파일 업로드 기능 처리함수
+	public ArrayList<FileVO> uploadProc(MultipartFile[] file) {
+		ArrayList<FileVO> list = new ArrayList<FileVO>();
+		
+		for(MultipartFile f : file) {
+			list.add(uploadProc(f));
+		}
+		return list;
+	}
+	
+	// 데이터베이스 입력작업 전담 처리함수
+	@Transactional
+	public void addBoardData(BoardVO bVO) {
+		// 할 일
+		// 게시판 테이블에 데이터 입력하고
+		bDao.addBoard(bVO);
+		// 파일정보테이블에 파일정보들 입력하고(반복)
+		ArrayList<FileVO> list = uploadProc(bVO.getFile());
+		// bno를 꺼내서 FileVO들에 채워주고
+		for(FileVO f : list) {
+			f.setBno(bVO.getBno());
+		}
+		
+		// 데이터 입력작업을 파일 갯수만큼 반복해준다.
+		for(FileVO f : list) {
+			bDao.addFile(f);
+		}
 	}
 
 }
