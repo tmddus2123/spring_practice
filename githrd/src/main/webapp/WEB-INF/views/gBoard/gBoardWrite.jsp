@@ -4,53 +4,59 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>BlackPink 방명록 글쓰기</title>
+<title>BlackPink 게시판 글쓰기</title>
 <link rel="stylesheet" type="text/css" href="/www/css/w3.css">
 <link rel="stylesheet" type="text/css" href="/www/css/user.css">
 <script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/www/js/gBoard/gBoard.js"></script>
+<script type="text/javascript" src="/www/js/board/board.js"></script>
 <style type="text/css">
-	.w3-button {
-		padding: 1px 16px;
+	label {
+		font-size: 14pt;
+		/* font-weight: bold; */
+		color: gray;
+		padding-right: 20px;
+		text-align: right;
 	}
-	.box120 {
-		width: 135px;
+	input[type="file"].w3-margin-bottom {
+		margin-bottom: 5px!important;
 	}
 </style>
 </head>
 <body>
-	<div class="w3-content mxw650 w3-margin-top">
-		<!-- 페이지 헤더 -->
-		<header class="w3-col w3-card-4 mgb20">
-			<h1 class="w3-pink w3-center w3-padding mg0">BlackPink 방명록 글쓰기</h1>
-			<nav class="w3-bar w3-yellow">
-				<div class="w3-col w150 w3-button w3-small w3-green" id="hbtn">home</div>
-				<div class="w3-col w150 w3-button w3-small w3-red w3-right" id="obtn">logout</div>
-			</nav>
-		</header>
-		
-		<form method="POST" action="/www/gBoard/gBoardWriteProc.blp" name="frm" id="frm"
-				class="w3-col w3-round-large w3-card-4 w3-margin-bottom w3-padding mgb20">
-			<input type="hidden" name="mno" value="${DATA.mno}">
-			<div class="w3-col box120 pdAll10 w3-border-right w3-border-deep-orange">
-				<img src="/www/img/avatar/${DATA.avatar}" class="inblock avtBox100 w3-border w3-border-grey">
+	<div class="w3-content mxw700">
+		<h1 class="w3-blue w3-padding w3-center w3-card-4">게시글 작성</h1>
+		<form method="POST" action="/www/board/boardWriteProc.blp" encType="multipart/form-data"
+				id="frm" name="frm" class="w3-col w3-card-4 frmpadding">
+			<input type="hidden" name="nowPage" id="nowPage" value="${param.nowPage}">
+			<input type="hidden" name="id" value="${SID}">
+			<div class="w3-col w3-margin-top w3-margin-bottom">
+				<label for="title" class="w3-col s2">Title</label>
+				<input type="text" id="title" name="title" class="w3-col m10 w3-input w3-border">
 			</div>
-			<div class="w3-rest w3-padding">
-				<div class="w3-col w3-border-bottom w3-border-deep-orange">
-					<span class="mgb10 ft10"><b>${SID}</b></span><!-- 
-					<span class="w3-button w3-right w3-red w3-hover-orange mgb10 ft10" id="wpbtn">등록</span> -->
-				</div>
-				<div class="w3-col w3-margin-top">
-					<textarea name="body" id="body"
-						class="w3-col w3-padding ft12 w3-border-orange" style="resize: none; height: 100%;"></textarea>
+			<div class="w3-col w3-margin-bottom">
+				<label class="w3-col s2">File</label>
+				<div class="w3-col m10" id="filebox">
+					<input type="file" name="file" class="w3-input w3-border w3-margin-bottom upfile">
 				</div>
 			</div>
-			<input type="hidden" id="nowPage" name="nowPage" value="${param.nowPage}">
+			<div class="w3-col w3-margin-bottom" id="previewbox" style="display: none;">
+				<label class="w3-col s2">Preview</label>
+				<div class="w3-col m10 w3-center" id="preview">
+				</div>
+			</div>
+			<div class="w3-col">
+				<label for="body" class="w3-col s2">글본문</label>
+				<div class="w3-col m10">
+					<textarea class="w3-col w3-input w3-padding w3-border w3-margin-bottom" 
+							id="body" name="body" rows="10" style="resize: none;"></textarea>
+				</div>
+			</div>
 		</form>
-		<div class="w3-col w3-card-4">
-			<div class="w3-third w3-button w3-green w3-hover-lime" id="listbtn">list</div>
-			<div class="w3-third w3-button w3-amber w3-hover-yellow" id="rbtn">reset</div>
-			<div class="w3-third w3-button w3-deep-orange w3-hover-yellow" id="addbtn">글등록</div>
+		
+		<div class="w3-col w3-margin-top w3-card-4">
+			<div class="w3-third w3-button w3-green" id="listbtn">리스트</div>
+			<div class="w3-third w3-button w3-blue" id="rbtn">리셋</div>
+			<div class="w3-third w3-button w3-deep-orange" id="wpbtn">글등록</div>
 		</div>
 	</div>
 </body>
