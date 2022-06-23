@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="/www/css/w3.css">
 <link rel="stylesheet" type="text/css" href="/www/css/base.css">
 <script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/www/js/member/login.js"></script>
+<script type="text/javascript" src="/www/js/member/login1.js"></script>
 <style type="text/css">
 	label {
 		font-size: 16pt;

@@ -25,7 +25,7 @@
 <body>
 	<div class="w3-content mxw700">
 		<h1 class="w3-blue w3-padding w3-center w3-card-4">게시글 작성</h1>
-		<form method="POST" action="/whistle/board/boardWriteProc.blp" encType="multipart/form-data"
+		<form method="POST" action="/www/board/boardWriteProc.blp" encType="multipart/form-data"
 				id="frm" name="frm" class="w3-col w3-card-4 frmpadding">
 			<input type="hidden" name="nowPage" id="nowPage" value="${param.nowPage}">
 			<div class="w3-col w3-margin-top w3-margin-bottom">
