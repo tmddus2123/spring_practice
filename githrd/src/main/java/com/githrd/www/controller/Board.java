@@ -1,11 +1,13 @@
 package com.githrd.www.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.githrd.www.dao.BoardDao;
@@ -98,6 +100,71 @@ public class Board {
 		
 		mv.setViewName("board/redirect");
 		
+		return mv;
+	}
+		
+	// 게시글 수정폼 보기 요청 처리함수
+	@RequestMapping(path="/boardEdit.blp", method=RequestMethod.POST, params= {"nowPage", "bno"})
+	public ModelAndView boardEdit(ModelAndView mv, BoardVO bVO) {
+		List<FileVO> list = bDao.getFileList(bVO.getBno());
+		bVO = bDao.getDetail(bVO.getBno());
+		
+		mv.addObject("DATE", bVO);
+		mv.addObject("LIST", list);
+		
+		mv.setViewName("board/boardEdit");
+		return mv;
+	}
+	
+	// 첨부파일 삭제 요청 처리함수
+	@RequestMapping(path="/fileDel.blp", method=RequestMethod.POST, params="fno")
+	@ResponseBody
+	public HashMap<String, String> fileDel(FileVO fVO){
+		HashMap<String, String> map = new HashMap<String, String>();
+		String result = "OK";
+		
+		int cnt = bDao.delFile(fVO.getFno());
+		if(cnt != 1) {
+			result = "NO";
+		}
+		
+		map.put("result", result);
+		
+		return map;
+	}
+	
+	// 게시글 수정 요청 처리함수
+	@RequestMapping("/boardEditProc.blp")
+	public ModelAndView boardEditProc(ModelAndView mv, BoardVO bVO, String nowPage) {
+		String view = "/www/board/boardDetail.blp";
+		try {
+			bSrvc.editBoard(bVO);
+		} catch(Exception e) {
+			e.printStackTrace();
+			view = "/www/board/boardEdit.blp";
+		}
+		
+		mv.addObject("VIEW", view);
+		mv.addObject("NOWPAGE", nowPage);
+		
+		mv.setViewName("board/redirect");
+		return mv;
+	}
+	
+	// 게시글 삭제 요청 처리함수
+	@RequestMapping("/boardDel.blp")
+	public ModelAndView delBoard(ModelAndView mv, BoardVO bVO, String nowPage) {
+		int cnt = bDao.delBoard(bVO.getBno());
+		String view = "/www/board/boardList.blp";
+		if(cnt != 1) {
+			view = "/www/board/boardDetail.blp";
+		}
+		
+		mv.addObject("VIEW", view);
+		mv.addObject("NOWPAGE", nowPage);
+		
+		// 뷰 정하고
+		mv.setViewName("board/redirect");
 		return mv;
 	}
 
