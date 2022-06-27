@@ -9,15 +9,16 @@
 						https://www.springframework.org/schema/context/spring-context.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<context:annotation-config /> 
+	<context:annotation-config />
 	
 	<bean id="mDao" class="com.githrd.www.dao.MemberDao" />
+	<bean id="bDao" class="com.githrd.www.dao.BoardDao" />
 	<bean id="gDao" class="com.githrd.www.dao.GBoardDao" />
 	<bean id="rDao" class="com.githrd.www.dao.ReBoardDao" />
 	<bean id="sDao" class="com.githrd.www.dao.SurveyDao" />
-	<bean id="bDao" class="com.githrd.www.dao.BoardDao" />
 	
-	<!-- 서비스 클래스 빈 처리 -->
+	<!-- 서비스 클래스 빈처리 -->
 	<bean id="sSrvc" class="com.githrd.www.service.SurveyService" />
 	<bean id="bSrvc" class="com.githrd.www.service.BoardService" />
+	
 </beans>

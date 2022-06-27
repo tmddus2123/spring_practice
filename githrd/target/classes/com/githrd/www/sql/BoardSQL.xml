@@ -58,6 +58,15 @@
 		    AND bno = #{bno}
    </select>
    
+  <!--  <select id="selMno" resultType="int", parameterType="string">
+   		SELECT
+   			bno
+   		FROM
+   			board
+   		WHERE
+   			id = #{id}
+   </select> -->
+   
    <!-- 글번호로 첨부파일 리스트 조회 질의명령 -->
    <select id="fileList" resultType="fVO" parameterType="int">
 	   	SELECT

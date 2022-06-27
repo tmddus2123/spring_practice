@@ -51,6 +51,7 @@ public class Board {
 		List<BoardVO> list = bDao.getList(page);
 		// 4. 데이터 심고
 		mv.addObject("LIST", list);
+		mv.addObject("PAGE", page);
 		// 5. 뷰 부르고
 		mv.setViewName("board/boardList");
 		// 6. mv 반환하고
@@ -87,11 +88,14 @@ public class Board {
 			System.out.println("************ " + bVO);
 			try {
 				bSrvc.addBoardData(bVO);
+				// 정상적으로 등록작업에 성공한 경우
+				bVO.setResult("OK");
 				nowPage = "1";
 			} catch(Exception e) {
 				// 게시글 등록에 실패한 경우
 				// 결과적으로 롤백된 경우....
 //				view = "/www/board/boardWrite.blp?nowPage=" + nowPage;
+				bVO.setResult("NO");
 				view = "/www/board/boardWrite.blp";
 				e.printStackTrace();
 			}

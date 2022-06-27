@@ -5,13 +5,19 @@ import java.util.Date;
 
 public class MemberVO {
 	private int mno, ano, cnt;
-	private String id, name, pw, mail, tel, sdate, savename, gen;
+	private String id, name, pw, mail, tel, sdate, savename, gen, result;
 	private Date jdate;
 	public int getMno() {
 		return mno;
 	}
 	public void setMno(int mno) {
 		this.mno = mno;
+	}
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
 	}
 	public int getAno() {
 		return ano;
