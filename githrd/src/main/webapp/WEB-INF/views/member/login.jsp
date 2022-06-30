@@ -13,7 +13,7 @@
 	label {
 		font-size: 16pt;
 	}
-	
+	 	
 	#msg {
 		font-size: 20pt;
 		font-weight: bold;
