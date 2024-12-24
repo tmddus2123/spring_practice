@@ -36,6 +36,8 @@ public class GuestBoard {
 		
 		// 게시글 목록 조회
 		List<BoardVO> list = gDao.getList(page);
+
+		//test
 		
 		// 데이터 심고
 		mv.addObject("LIST", list);
